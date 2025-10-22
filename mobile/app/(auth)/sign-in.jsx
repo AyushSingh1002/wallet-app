@@ -3,9 +3,9 @@ import { Link, useRouter } from "expo-router";
 import { Text, TextInput, TouchableOpacity, View, Image } from "react-native";
 import { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { styles } from "../../assets/styles/auth.styles";
+import { styles } from "../../assets/styles/auth.style";
 import { Ionicons } from "@expo/vector-icons";
-import { COLORS } from "../../constants/colors";
+import { COLORS } from "@/constants/color";
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -52,6 +52,7 @@ export default function Page() {
       enableOnAndroid={true}
       enableAutomaticScroll={true}
       extraScrollHeight={30}
+      showsVerticalScrollIndicator={false}
     >
       <View style={styles.container}>
         <Image source={require("../../assets/images/revenue-i4.png")} style={styles.illustration} />

@@ -1,6 +1,6 @@
 // styles/auth.styles.js
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../constants/colors";
+import { COLORS } from "@/constants/color";
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   illustration: {
     height: 310,
     width: 300,
-    resizeMode: "contain",
+    contentFit: "contain",
   },
   title: {
     fontSize: 32,
