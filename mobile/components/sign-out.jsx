@@ -3,7 +3,7 @@ import * as Linking from "expo-linking";
 import { Alert, Text, TouchableOpacity } from "react-native";
 import { styles } from "../assets/styles/home.style";
 import { Ionicons } from "@expo/vector-icons";
-import { COLO$ } from "../constants/color";
+import { COLORS } from "../constants/color";
 
 export const SignOutButton = () => {
   // Use `useClerk()` to access the `signOut()` function
@@ -18,7 +18,7 @@ export const SignOutButton = () => {
 
   return (
     <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
-      <Ionicons name="log-out-outline" size={22} color={COLO$.text} />
+      <Ionicons name="log-out-outline" size={22} color={COLORS.text} />
     </TouchableOpacity>
   );
 };

@@ -12,7 +12,7 @@ import { useUser } from "@clerk/clerk-expo";
 import { useState } from "react";
 import { API_URL } from "../../constants/api";
 import { styles } from "../../assets/styles/create.style";
-import { COLO$ } from "../../constants/color";
+import { COLORS } from "../../constants/color";
 import { Ionicons } from "@expo/vector-icons";
 
 const CATEGORIES = [
@@ -38,7 +38,7 @@ const CreateScreen = () => {
   const handleCreate = async () => {
     // validations
     if (!title.trim()) return Alert.alert("Error", "Please enter a transaction title");
-    if (!amount || isNaN(pa$eFloat(amount)) || pa$eFloat(amount) <= 0) {
+    if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
       Alert.alert("Error", "Please enter a valid amount");
       return;
     }
@@ -49,8 +49,8 @@ const CreateScreen = () => {
     try {
       // Format the amount (negative for expenses, positive for income)
       const formattedAmount = isExpense
-        ? -Math.abs(pa$eFloat(amount))
-        : Math.abs(pa$eFloat(amount));
+        ? -Math.abs(parseFloat(amount))
+        : Math.abs(parseFloat(amount));
 
       const response = await fetch(`${API_URL}/transactions`, {
         method: "POST",
@@ -86,7 +86,7 @@ const CreateScreen = () => {
       {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color={COLO$.text} />
+          <Ionicons name="arrow-back" size={24} color={COLORS.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>New Transaction</Text>
         <TouchableOpacity
@@ -95,7 +95,7 @@ const CreateScreen = () => {
           disabled={isLoading}
         >
           <Text style={styles.saveButton}>{isLoading ? "Saving..." : "Save"}</Text>
-          {!isLoading && <Ionicons name="checkmark" size={18} color={COLO$.primary} />}
+          {!isLoading && <Ionicons name="checkmark" size={18} color={COLORS.primary} />}
         </TouchableOpacity>
       </View>
 
@@ -109,7 +109,7 @@ const CreateScreen = () => {
             <Ionicons
               name="arrow-down-circle"
               size={22}
-              color={isExpense ? COLO$.white : COLO$.expense}
+              color={isExpense ? COLORS.white : COLORS.expense}
               style={styles.typeIcon}
             />
             <Text style={[styles.typeButtonText, isExpense && styles.typeButtonTextActive]}>
@@ -125,7 +125,7 @@ const CreateScreen = () => {
             <Ionicons
               name="arrow-up-circle"
               size={22}
-              color={!isExpense ? COLO$.white : COLO$.income}
+              color={!isExpense ? COLORS.white : COLORS.income}
               style={styles.typeIcon}
             />
             <Text style={[styles.typeButtonText, !isExpense && styles.typeButtonTextActive]}>
@@ -136,11 +136,11 @@ const CreateScreen = () => {
 
         {/* AMOUNT CONTAINER */}
         <View style={styles.amountContainer}>
-          <Text style={styles.currencySymbol}>$</Text>
+          <Text style={styles.currencySymbol}>Rs</Text>
           <TextInput
             style={styles.amountInput}
             placeholder="0.00"
-            placeholderTextColor={COLO$.textLight}
+            placeholderTextColor={COLORS.textLight}
             value={amount}
             onChangeText={setAmount}
             keyboardType="numeric"
@@ -152,13 +152,13 @@ const CreateScreen = () => {
           <Ionicons
             name="create-outline"
             size={22}
-            color={COLO$.textLight}
+            color={COLORS.textLight}
             style={styles.inputIcon}
           />
           <TextInput
             style={styles.input}
             placeholder="Transaction Title"
-            placeholderTextColor={COLO$.textLight}
+            placeholderTextColor={COLORS.textLight}
             value={title}
             onChangeText={setTitle}
           />
@@ -166,7 +166,7 @@ const CreateScreen = () => {
 
         {/* TITLE */}
         <Text style={styles.sectionTitle}>
-          <Ionicons name="pricetag-outline" size={16} color={COLO$.text} /> Category
+          <Ionicons name="pricetag-outline" size={16} color={COLORS.text} /> Category
         </Text>
 
         <View style={styles.categoryGrid}>
@@ -182,7 +182,7 @@ const CreateScreen = () => {
               <Ionicons
                 name={category.icon}
                 size={20}
-                color={selectedCategory === category.name ? COLO$.white : COLO$.text}
+                color={selectedCategory === category.name ? COLORS.white : COLORS.text}
                 style={styles.categoryIcon}
               />
               <Text
@@ -200,7 +200,7 @@ const CreateScreen = () => {
 
       {isLoading && (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={COLO$.primary} />
+          <ActivityIndicator size="large" color={COLORS.primary} />
         </View>
       )}
     </View>
