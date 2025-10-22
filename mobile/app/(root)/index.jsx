@@ -1,15 +1,15 @@
-import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
-import { Link, useRouter } from "expo-router";
-import { Alert, FlatList, Image, RefreshControl, Text, TouchableOpacity, View } from "react-native";
-import { SignOutButton } from "@/components/sign-out";
-import { useTransactions } from "../../hooks/useTransactions";
-import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
-import { styles } from "../../assets/styles/home.style";
+import { SignOutButton } from "@/components/sign-out";
+import { useUser } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Alert, FlatList, Image, RefreshControl, Text, TouchableOpacity, View } from "react-native";
+import { styles } from "../../assets/styles/home.style";
 import { BalanceCard } from "../../components/BalanceCard";
-import { TransactionItem } from "../../components/TransactionItem";
 import NoTransactionsFound from "../../components/NoTransactionsFound";
+import { TransactionItem } from "../../components/TransactionItem";
+import { useTransactions } from "../../hooks/useTransactions";
 
 export default function Page() {
   const { user } = useUser();
@@ -17,7 +17,7 @@ export default function Page() {
   const [refreshing, setRefreshing] = useState(false);
 
   const { transactions, summary, isLoading, loadData, deleteTransaction } = useTransactions(
-    user.id
+    user?.id
   );
 
   const onRefresh = async () => {
@@ -79,7 +79,7 @@ export default function Page() {
       {/* it rende$ items lazily — only those on the screen. */}
       <FlatList
         style={styles.transactionsList}
-        contentContaine$tyle={styles.transactionsListContent}
+        contentContainerStyle={styles.transactionsListContent}
         data={transactions}
         renderItem={({ item }) => <TransactionItem item={item} onDelete={handleDelete} />}
         ListEmptyComponent={<NoTransactionsFound />}
