@@ -26,6 +26,7 @@ const CATEGORIES = [
 ];
 
 const CreateScreen = () => {
+  
   const router = useRouter();
   const { user } = useUser();
 
@@ -51,10 +52,12 @@ const CreateScreen = () => {
       const formattedAmount = isExpense
         ? -Math.abs(parseFloat(amount))
         : Math.abs(parseFloat(amount));
+        console.log( title, amount, formattedAmount, selectedCategory );
+        
 
       const response = await fetch(`${API_URL}/transactions`, {
         method: "POST",
-        heade$: {
+        headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -63,7 +66,7 @@ const CreateScreen = () => {
           amount: formattedAmount,
           category: selectedCategory,
         }),
-      });
+      }); 
 
       if (!response.ok) {
         const errorData = await response.json();
